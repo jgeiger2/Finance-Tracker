@@ -8,7 +8,6 @@ const AddExpenseModal = ({ onClose, onExpenseAdded }) => {
     amount: "",
     date: new Date().toISOString().split("T")[0],
     category: "",
-    company: "",
     notes: "",
   });
 
@@ -53,6 +52,7 @@ const AddExpenseModal = ({ onClose, onExpenseAdded }) => {
         ...formData,
         amount: Number(formData.amount).toFixed(2),
         type: "expense",
+        company: formData.title,
       });
 
       // Notify parent and close modal
@@ -82,11 +82,98 @@ const AddExpenseModal = ({ onClose, onExpenseAdded }) => {
     "Other",
   ];
 
+  const modalStyles = {
+    formGroup: {
+      marginBottom: "1rem",
+    },
+    label: {
+      marginBottom: "0.4rem",
+      fontWeight: "600",
+      display: "block",
+      color: "#d4d7e6",
+      fontSize: "0.9rem",
+    },
+    input: {
+      width: "100%",
+      padding: "0.6rem",
+      borderRadius: "0.6rem",
+      background: "rgba(255, 255, 255, 0.06)",
+      border: "1px solid rgba(255, 255, 255, 0.12)",
+      color: "#fff",
+      fontSize: "0.9rem",
+    },
+    textarea: {
+      width: "100%",
+      padding: "0.6rem",
+      borderRadius: "0.6rem",
+      background: "rgba(255, 255, 255, 0.06)",
+      border: "1px solid rgba(255, 255, 255, 0.12)",
+      color: "#fff",
+      fontSize: "0.9rem",
+      resize: "vertical",
+      minHeight: "70px",
+    },
+    formActions: {
+      display: "flex",
+      justifyContent: "space-between",
+      marginTop: "1.2rem",
+      gap: "1rem",
+    },
+    cancelButton: {
+      padding: "0.5rem 1rem",
+      borderRadius: "0.5rem",
+      background: "rgba(255, 255, 255, 0.1)",
+      color: "#fff",
+      fontWeight: "600",
+      border: "1px solid rgba(255, 255, 255, 0.1)",
+      cursor: "pointer",
+      flex: "1",
+      fontSize: "0.9rem",
+      transition: "background 0.2s",
+      maxWidth: "120px",
+      height: "36px",
+    },
+    submitButton: {
+      padding: "0.5rem 1rem",
+      borderRadius: "0.5rem",
+      background: "linear-gradient(90deg, #00f2fe 0%, #4facfe 100%)",
+      color: "#181924",
+      fontWeight: "700",
+      border: "none",
+      cursor: "pointer",
+      flex: "1",
+      fontSize: "0.9rem",
+      transition: "transform 0.2s ease",
+      boxShadow: "0 2px 5px rgba(0, 242, 254, 0.3)",
+      maxWidth: "120px",
+      height: "36px",
+    },
+    header: {
+      fontSize: "1.4rem",
+      textAlign: "center",
+      background: "linear-gradient(90deg, #00f2fe 0%, #4facfe 100%)",
+      WebkitBackgroundClip: "text",
+      WebkitTextFillColor: "transparent",
+      backgroundClip: "text",
+      fontWeight: "700",
+      margin: 0,
+      padding: 0,
+    },
+  };
+
   return (
     <div className="modal-backdrop">
-      <div className="modal-content glass-card">
+      <div
+        className="modal-content glass-card"
+        style={{
+          maxHeight: "90vh",
+          overflow: "hidden",
+          display: "flex",
+          flexDirection: "column",
+        }}
+      >
         <div className="modal-header">
-          <h2>Add New Expense</h2>
+          <h2 style={modalStyles.header}>Add Expense</h2>
           <button className="close-button" onClick={onClose}>
             &times;
           </button>
@@ -94,53 +181,33 @@ const AddExpenseModal = ({ onClose, onExpenseAdded }) => {
 
         {error && <div className="error-message">{error}</div>}
 
-        <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label htmlFor="title">Expense Title</label>
+        <form
+          onSubmit={handleSubmit}
+          style={{ overflowY: "auto", padding: "0 15px" }}
+        >
+          <div style={{ ...modalStyles.formGroup, marginTop: "10px" }}>
+            <label htmlFor="title" style={modalStyles.label}>
+              Merchant
+            </label>
             <input
+              style={modalStyles.input}
               type="text"
               id="title"
               name="title"
               value={formData.title}
               onChange={handleChange}
-              placeholder="e.g., Grocery Shopping"
+              placeholder="e.g., Walmart, Target"
               required
             />
           </div>
 
-          <div className="form-row">
-            <div className="form-group">
-              <label htmlFor="amount">Amount ($)</label>
-              <input
-                type="number"
-                id="amount"
-                name="amount"
-                min="0.01"
-                step="0.01"
-                value={formData.amount}
-                onChange={handleChange}
-                placeholder="0.00"
-                required
-              />
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="date">Date</label>
-              <input
-                type="date"
-                id="date"
-                name="date"
-                value={formData.date}
-                onChange={handleChange}
-                required
-              />
-            </div>
-          </div>
-
-          <div className="form-row">
-            <div className="form-group">
-              <label htmlFor="category">Category</label>
+          <div className="form-row" style={{ display: "block", width: "100%" }}>
+            <div style={{ ...modalStyles.formGroup, width: "100%" }}>
+              <label htmlFor="category" style={modalStyles.label}>
+                Category
+              </label>
               <select
+                style={{ ...modalStyles.input, width: "100%" }}
                 id="category"
                 name="category"
                 value={formData.category}
@@ -155,23 +222,55 @@ const AddExpenseModal = ({ onClose, onExpenseAdded }) => {
                 ))}
               </select>
             </div>
+          </div>
 
-            <div className="form-group">
-              <label htmlFor="company">Company/Merchant (Optional)</label>
+          <div className="form-row">
+            <div style={modalStyles.formGroup}>
+              <label htmlFor="amount" style={modalStyles.label}>
+                Amount ($)
+              </label>
               <input
-                type="text"
-                id="company"
-                name="company"
-                value={formData.company}
+                style={modalStyles.input}
+                type="number"
+                id="amount"
+                name="amount"
+                min="0.01"
+                step="0.01"
+                value={formData.amount}
                 onChange={handleChange}
-                placeholder="e.g., Walmart"
+                placeholder="0.00"
+                required
+              />
+            </div>
+
+            <div style={modalStyles.formGroup}>
+              <label htmlFor="date" style={modalStyles.label}>
+                Date
+              </label>
+              <input
+                style={modalStyles.input}
+                type="date"
+                id="date"
+                name="date"
+                value={formData.date}
+                onChange={handleChange}
+                required
               />
             </div>
           </div>
 
-          <div className="form-group">
-            <label htmlFor="notes">Notes (Optional)</label>
+          <div
+            style={{
+              ...modalStyles.formGroup,
+              marginTop: "5px",
+              marginBottom: "15px",
+            }}
+          >
+            <label htmlFor="notes" style={modalStyles.label}>
+              Notes (Optional)
+            </label>
             <textarea
+              style={modalStyles.textarea}
               id="notes"
               name="notes"
               value={formData.notes}
@@ -181,12 +280,42 @@ const AddExpenseModal = ({ onClose, onExpenseAdded }) => {
             ></textarea>
           </div>
 
-          <div className="form-actions">
-            <button type="button" className="cancel-button" onClick={onClose}>
+          <div
+            style={{
+              ...modalStyles.formActions,
+              justifyContent: "center",
+              marginBottom: "16px",
+            }}
+          >
+            <button
+              type="button"
+              style={modalStyles.cancelButton}
+              onClick={onClose}
+              onMouseOver={(e) =>
+                (e.target.style.background = "rgba(255, 255, 255, 0.15)")
+              }
+              onMouseOut={(e) =>
+                (e.target.style.background = "rgba(255, 255, 255, 0.1)")
+              }
+            >
               Cancel
             </button>
-            <button type="submit" className="submit-button" disabled={loading}>
-              {loading ? "Adding..." : "Add Expense"}
+            <button
+              type="submit"
+              style={{
+                ...modalStyles.submitButton,
+                opacity: loading ? "0.7" : "1",
+                cursor: loading ? "not-allowed" : "pointer",
+              }}
+              disabled={loading}
+              onMouseOver={(e) =>
+                !loading && (e.target.style.transform = "translateY(-2px)")
+              }
+              onMouseOut={(e) =>
+                !loading && (e.target.style.transform = "translateY(0px)")
+              }
+            >
+              {loading ? "Adding..." : "Add"}
             </button>
           </div>
         </form>

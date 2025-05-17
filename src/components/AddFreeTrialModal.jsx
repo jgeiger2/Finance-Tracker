@@ -6,8 +6,6 @@ import "../App.css";
 const AddFreeTrialModal = ({ onClose, onTrialAdded }) => {
   const [formData, setFormData] = useState({
     service: "",
-    trialLength: "",
-    trialUnit: "days",
     endDate: "",
     price: "",
     notes: "",
@@ -15,27 +13,6 @@ const AddFreeTrialModal = ({ onClose, onTrialAdded }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [user, setUser] = useState(null);
-
-  // Calculate end date based on trial length
-  useEffect(() => {
-    if (formData.trialLength && formData.trialUnit) {
-      const today = new Date();
-      let endDate = new Date(today);
-      
-      if (formData.trialUnit === "days") {
-        endDate.setDate(today.getDate() + parseInt(formData.trialLength));
-      } else if (formData.trialUnit === "weeks") {
-        endDate.setDate(today.getDate() + (parseInt(formData.trialLength) * 7));
-      } else if (formData.trialUnit === "months") {
-        endDate.setMonth(today.getMonth() + parseInt(formData.trialLength));
-      }
-      
-      setFormData(prev => ({
-        ...prev,
-        endDate: endDate.toISOString().split("T")[0]
-      }));
-    }
-  }, [formData.trialLength, formData.trialUnit]);
 
   // Check auth state when component mounts
   useEffect(() => {
@@ -113,14 +90,98 @@ const AddFreeTrialModal = ({ onClose, onTrialAdded }) => {
     }
   };
 
-  // Trial unit options
-  const trialUnitOptions = ["days", "weeks", "months"];
+  const modalStyles = {
+    formGroup: {
+      marginBottom: "1rem",
+    },
+    label: {
+      marginBottom: "0.4rem",
+      fontWeight: "600",
+      display: "block",
+      color: "#d4d7e6",
+      fontSize: "0.9rem",
+    },
+    input: {
+      width: "100%",
+      padding: "0.6rem",
+      borderRadius: "0.6rem",
+      background: "rgba(255, 255, 255, 0.06)",
+      border: "1px solid rgba(255, 255, 255, 0.12)",
+      color: "#fff",
+      fontSize: "0.9rem",
+    },
+    textarea: {
+      width: "100%",
+      padding: "0.6rem",
+      borderRadius: "0.6rem",
+      background: "rgba(255, 255, 255, 0.06)",
+      border: "1px solid rgba(255, 255, 255, 0.12)",
+      color: "#fff",
+      fontSize: "0.9rem",
+      resize: "vertical",
+      minHeight: "70px",
+    },
+    formActions: {
+      display: "flex",
+      justifyContent: "space-between",
+      marginTop: "1.2rem",
+      gap: "1rem",
+    },
+    cancelButton: {
+      padding: "0.5rem 1rem",
+      borderRadius: "0.5rem",
+      background: "rgba(255, 255, 255, 0.1)",
+      color: "#fff",
+      fontWeight: "600",
+      border: "1px solid rgba(255, 255, 255, 0.1)",
+      cursor: "pointer",
+      flex: "1",
+      fontSize: "0.9rem",
+      transition: "background 0.2s",
+      maxWidth: "120px",
+      height: "36px",
+    },
+    submitButton: {
+      padding: "0.5rem 1rem",
+      borderRadius: "0.5rem",
+      background: "linear-gradient(90deg, #00f2fe 0%, #4facfe 100%)",
+      color: "#181924",
+      fontWeight: "700",
+      border: "none",
+      cursor: "pointer",
+      flex: "1",
+      fontSize: "0.9rem",
+      transition: "transform 0.2s ease",
+      boxShadow: "0 2px 5px rgba(0, 242, 254, 0.3)",
+      maxWidth: "120px",
+      height: "36px",
+    },
+    header: {
+      fontSize: "1.4rem",
+      textAlign: "center",
+      background: "linear-gradient(90deg, #00f2fe 0%, #4facfe 100%)",
+      WebkitBackgroundClip: "text",
+      WebkitTextFillColor: "transparent",
+      backgroundClip: "text",
+      fontWeight: "700",
+      margin: 0,
+      padding: 0,
+    },
+  };
 
   return (
     <div className="modal-backdrop">
-      <div className="modal-content glass-card">
+      <div
+        className="modal-content glass-card"
+        style={{
+          maxHeight: "90vh",
+          overflow: "hidden",
+          display: "flex",
+          flexDirection: "column",
+        }}
+      >
         <div className="modal-header">
-          <h2>Add Free Trial</h2>
+          <h2 style={modalStyles.header}>Add Trial</h2>
           <button className="close-button" onClick={onClose}>
             &times;
           </button>
@@ -128,10 +189,16 @@ const AddFreeTrialModal = ({ onClose, onTrialAdded }) => {
 
         {error && <div className="error-message">{error}</div>}
 
-        <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label htmlFor="service">Service Name</label>
+        <form
+          onSubmit={handleSubmit}
+          style={{ overflowY: "auto", padding: "0 15px" }}
+        >
+          <div style={{ ...modalStyles.formGroup, marginTop: "10px" }}>
+            <label htmlFor="service" style={modalStyles.label}>
+              Service Name
+            </label>
             <input
+              style={modalStyles.input}
               type="text"
               id="service"
               name="service"
@@ -142,53 +209,27 @@ const AddFreeTrialModal = ({ onClose, onTrialAdded }) => {
             />
           </div>
 
-          <div className="form-row">
-            <div className="form-group">
-              <label htmlFor="trialLength">Length of Trial</label>
-              <div className="form-row">
-                <input
-                  type="number"
-                  id="trialLength"
-                  name="trialLength"
-                  min="1"
-                  value={formData.trialLength}
-                  onChange={handleChange}
-                  placeholder="14"
-                  required
-                  style={{ flexGrow: 1 }}
-                />
-                <select
-                  id="trialUnit"
-                  name="trialUnit"
-                  value={formData.trialUnit}
-                  onChange={handleChange}
-                  style={{ width: "40%" }}
-                >
-                  {trialUnitOptions.map((option) => (
-                    <option key={option} value={option}>
-                      {option.charAt(0).toUpperCase() + option.slice(1)}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="endDate">End Date</label>
-              <input
-                type="date"
-                id="endDate"
-                name="endDate"
-                value={formData.endDate}
-                onChange={handleChange}
-                required
-              />
-            </div>
+          <div style={modalStyles.formGroup}>
+            <label htmlFor="endDate" style={modalStyles.label}>
+              End Date
+            </label>
+            <input
+              style={modalStyles.input}
+              type="date"
+              id="endDate"
+              name="endDate"
+              value={formData.endDate}
+              onChange={handleChange}
+              required
+            />
           </div>
 
-          <div className="form-group">
-            <label htmlFor="price">Price After Trial ($)</label>
+          <div style={modalStyles.formGroup}>
+            <label htmlFor="price" style={modalStyles.label}>
+              Price After Trial ($)
+            </label>
             <input
+              style={modalStyles.input}
               type="number"
               id="price"
               name="price"
@@ -201,9 +242,12 @@ const AddFreeTrialModal = ({ onClose, onTrialAdded }) => {
             />
           </div>
 
-          <div className="form-group">
-            <label htmlFor="notes">Notes (Optional)</label>
+          <div style={modalStyles.formGroup}>
+            <label htmlFor="notes" style={modalStyles.label}>
+              Notes (Optional)
+            </label>
             <textarea
+              style={modalStyles.textarea}
               id="notes"
               name="notes"
               value={formData.notes}
@@ -213,12 +257,42 @@ const AddFreeTrialModal = ({ onClose, onTrialAdded }) => {
             ></textarea>
           </div>
 
-          <div className="form-actions">
-            <button type="button" className="cancel-button" onClick={onClose}>
+          <div
+            style={{
+              ...modalStyles.formActions,
+              justifyContent: "center",
+              marginBottom: "16px",
+            }}
+          >
+            <button
+              type="button"
+              style={modalStyles.cancelButton}
+              onClick={onClose}
+              onMouseOver={(e) =>
+                (e.target.style.background = "rgba(255, 255, 255, 0.15)")
+              }
+              onMouseOut={(e) =>
+                (e.target.style.background = "rgba(255, 255, 255, 0.1)")
+              }
+            >
               Cancel
             </button>
-            <button type="submit" className="submit-button" disabled={loading}>
-              {loading ? "Adding..." : "Add Free Trial"}
+            <button
+              type="submit"
+              style={{
+                ...modalStyles.submitButton,
+                opacity: loading ? "0.7" : "1",
+                cursor: loading ? "not-allowed" : "pointer",
+              }}
+              disabled={loading}
+              onMouseOver={(e) =>
+                !loading && (e.target.style.transform = "translateY(-2px)")
+              }
+              onMouseOut={(e) =>
+                !loading && (e.target.style.transform = "translateY(0px)")
+              }
+            >
+              {loading ? "Adding..." : "Add Trial"}
             </button>
           </div>
         </form>
@@ -227,4 +301,4 @@ const AddFreeTrialModal = ({ onClose, onTrialAdded }) => {
   );
 };
 
-export default AddFreeTrialModal; 
+export default AddFreeTrialModal;

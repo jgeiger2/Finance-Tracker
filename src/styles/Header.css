@@ -2,7 +2,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 2rem;
+  padding: 1rem 1.5rem;
   background-color: var(--color-card);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   position: sticky;
@@ -15,7 +15,8 @@
 }
 
 .header-left {
-  flex: 1;
+  flex: 0.5;
+  /* Left section kept for potential future elements */
 }
 
 .user-name {
@@ -25,8 +26,8 @@
 }
 
 .header-center {
-  flex: 2;
-  text-align: center;
+  flex: 3;
+  text-align: left; /* Left-aligned rather than centered */
 }
 
 .app-title {
@@ -34,6 +35,9 @@
   font-weight: 700;
   color: var(--color-text);
   margin: 0;
+  background: linear-gradient(90deg, #00f2fe 0%, #4facfe 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
 }
 
 .header-right {
@@ -41,6 +45,7 @@
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  gap: 0.15rem;
 }
 
 .settings-button {
@@ -71,7 +76,7 @@
   cursor: pointer;
   padding: 0.5rem;
   border-radius: 50%;
-  margin-right: 0.5rem;
+  margin-right: 0;
   transition: background-color 0.2s ease;
 }
 
@@ -100,7 +105,7 @@ body:not(.light) .theme-icon {
   padding: 0.5rem;
   border-radius: 50%;
   transition: background-color 0.2s ease;
-  margin-left: 0.5rem;
+  margin-left: 0;
 }
 
 .logout-button:hover {
@@ -127,7 +132,7 @@ body.light .user-welcome {
 /* Notification styles */
 .notification-container {
   position: relative;
-  margin-right: 12px;
+  margin-right: 0;
 }
 
 .notification-button {
@@ -496,4 +501,88 @@ body.light .cancel-notification-btn {
 
 body.light .cancel-notification-btn:hover {
   background-color: rgba(0, 0, 0, 0.08);
+}
+
+/* Mobile responsive styles for header */
+@media (max-width: 768px) {
+  .header {
+    padding: 0.75rem 1rem;
+  }
+
+  .app-title {
+    font-size: 1.25rem;
+  }
+
+  .header-center {
+    flex: 2;
+  }
+
+  .user-name {
+    font-size: 1rem;
+  }
+
+  .notification-dropdown {
+    width: 300px;
+    right: -70px;
+  }
+
+  .notification-dropdown:before {
+    content: "";
+    position: absolute;
+    top: -10px;
+    right: 78px;
+    border-width: 0 10px 10px;
+    border-style: solid;
+    border-color: transparent transparent var(--color-card);
+  }
+}
+
+@media (max-width: 480px) {
+  .header {
+    padding: 0.5rem 0.75rem;
+  }
+
+  .header-left {
+    flex: 0.2;
+  }
+
+  .header-center {
+    flex: 2.5;
+  }
+
+  .app-title {
+    font-size: 1.1rem;
+  }
+
+  .user-name {
+    font-size: 0.9rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 80px;
+  }
+
+  .notification-dropdown {
+    width: 280px;
+    right: -100px;
+    max-height: 350px;
+  }
+
+  .notification-dropdown:before {
+    right: 108px;
+  }
+
+  .settings-icon,
+  .theme-icon,
+  .notification-icon,
+  .logout-icon {
+    font-size: 1.1rem;
+  }
+
+  .settings-button,
+  .toggle-theme-button,
+  .notification-button,
+  .logout-button {
+    padding: 0.3rem;
+  }
 }

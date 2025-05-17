@@ -90,7 +90,7 @@ const SummaryCard = () => {
           Add <span className="gradient-bills">Recurring Bill</span>
         </button>
         <button className="summary-action-btn" onClick={openFreeTrialModal}>
-          Add <span className="gradient-trial">Free Trial</span>
+          Add <span className="gradient-trial">Trial</span>
         </button>
         <button className="summary-action-btn" onClick={openIncomeModal}>
           Add <span className="gradient-income">Income</span>

@@ -204,9 +204,7 @@ const RecurringBillsCard = () => {
                     {loadingStates[`reminder_${bill.id}`] ? (
                       <FaSpinner className="spinner" />
                     ) : (
-                      <>
-                        <FaBell /> <span className="remind-text">Remind</span>
-                      </>
+                      "Remind"
                     )}
                   </button>
                   <button
@@ -217,9 +215,7 @@ const RecurringBillsCard = () => {
                     {loadingStates[`delete_${bill.id}`] ? (
                       <FaSpinner className="spinner" />
                     ) : (
-                      <>
-                        <FaTrash /> Delete
-                      </>
+                      "Delete"
                     )}
                   </button>
                 </div>

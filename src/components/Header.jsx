@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { FaUserCircle, FaBell, FaPlus } from "react-icons/fa";
+import { FaBell, FaPlus } from "react-icons/fa";
 import { FiLogOut } from "react-icons/fi";
 import { BsMoonStarsFill, BsSunFill } from "react-icons/bs";
 import "../styles/Header.css";
@@ -147,9 +147,7 @@ const Header = ({ onLogout }) => {
 
   return (
     <header className="header">
-      <div className="header-left">
-        <FaUserCircle className="user-icon" />
-      </div>
+      <div className="header-left">{/* Profile icon removed */}</div>
       <div className="header-center">
         <h1 className="app-title">Finance Tracker</h1>
       </div>
