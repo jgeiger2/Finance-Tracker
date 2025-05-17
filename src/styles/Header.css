@@ -40,6 +40,7 @@
   flex: 1;
   display: flex;
   justify-content: flex-end;
+  align-items: center;
 }
 
 .settings-button {
@@ -85,4 +86,414 @@
 
 body:not(.light) .theme-icon {
   color: #60a5fa; /* Moon blue for dark mode */
+}
+
+.user-icon {
+  font-size: 1.5rem;
+  color: var(--color-text);
+}
+
+.logout-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 50%;
+  transition: background-color 0.2s ease;
+  margin-left: 0.5rem;
+}
+
+.logout-button:hover {
+  background-color: rgba(244, 63, 94, 0.1);
+}
+
+.logout-icon {
+  font-size: 1.25rem;
+  color: #f43f5e;
+}
+
+.user-welcome {
+  text-align: center;
+  margin-top: 1rem;
+  font-weight: 500;
+  font-size: 1.1rem;
+  color: #b0b3c6;
+}
+
+body.light .user-welcome {
+  color: #334155;
+}
+
+/* Notification styles */
+.notification-container {
+  position: relative;
+  margin-right: 12px;
+}
+
+.notification-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 50%;
+  transition: background-color 0.2s ease;
+  position: relative;
+}
+
+.notification-button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+body.light .notification-button:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.notification-icon {
+  font-size: 1.25rem;
+  color: #9370db;
+}
+
+.notification-badge {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  background-color: #ff6b6b;
+  color: white;
+  border-radius: 50%;
+  min-width: 18px;
+  height: 18px;
+  font-size: 10px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 4px;
+  border: 2px solid var(--color-card);
+}
+
+.notification-dropdown {
+  position: absolute;
+  top: calc(100% + 5px);
+  right: -10px;
+  width: 320px;
+  max-height: 400px;
+  background: var(--color-card);
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  z-index: 1100;
+  display: flex;
+  flex-direction: column;
+}
+
+.notification-header {
+  padding: 12px 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+body.light .notification-header {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.notification-header h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--color-text);
+  background: none;
+  -webkit-text-fill-color: var(--color-text);
+}
+
+.reminder-count {
+  font-size: 12px;
+  color: #9370db;
+  font-weight: 500;
+}
+
+.notification-content {
+  flex: 1;
+  overflow-y: auto;
+  max-height: 300px;
+}
+
+.no-notifications {
+  padding: 20px;
+  text-align: center;
+  color: #b0b3c6;
+  font-size: 14px;
+}
+
+body.light .no-notifications {
+  color: #64748b;
+}
+
+.notification-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.notification-item {
+  padding: 12px 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.notification-item:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+body.light .notification-item {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+body.light .notification-item:hover {
+  background-color: rgba(0, 0, 0, 0.02);
+}
+
+.notification-item:last-child {
+  border-bottom: none;
+}
+
+.notification-info {
+  margin-bottom: 8px;
+}
+
+.notification-title {
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--color-text);
+  margin-bottom: 4px;
+}
+
+.notification-description {
+  font-size: 12px;
+  color: #b0b3c6;
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+
+body.light .notification-description {
+  color: #64748b;
+}
+
+.notification-date {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 8px;
+}
+
+.date-badge {
+  font-size: 12px;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-weight: 500;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #b0b3c6;
+}
+
+body.light .date-badge {
+  background-color: rgba(0, 0, 0, 0.05);
+  color: #64748b;
+}
+
+.date-badge.today {
+  background-color: rgba(255, 107, 107, 0.2);
+  color: #ff6b6b;
+}
+
+.date-badge.tomorrow {
+  background-color: rgba(255, 165, 2, 0.2);
+  color: #ffa502;
+}
+
+.notification-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.notification-action {
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.notification-action.dismiss {
+  background-color: rgba(76, 175, 80, 0.2);
+  color: #4caf50;
+}
+
+.notification-action.dismiss:hover {
+  background-color: rgba(76, 175, 80, 0.3);
+}
+
+.notification-action.delete {
+  background-color: rgba(244, 67, 54, 0.2);
+  color: #f44336;
+}
+
+.notification-action.delete:hover {
+  background-color: rgba(244, 67, 54, 0.3);
+}
+
+.notification-action:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.notification-footer {
+  padding: 10px 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: center;
+}
+
+body.light .notification-footer {
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.notification-footer a {
+  color: #9370db;
+  font-size: 13px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.notification-footer a:hover {
+  color: #6a5acd;
+  text-decoration: underline;
+}
+
+/* Add styles for the notification add form */
+.notification-actions-top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.add-notification-btn {
+  background: none;
+  border: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #9370db;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.add-notification-btn:hover {
+  background-color: rgba(147, 112, 219, 0.2);
+  transform: scale(1.1);
+}
+
+.add-notification-form-container {
+  padding: 12px 16px;
+}
+
+.add-notification-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.notification-form-row {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.notification-form-row label {
+  font-size: 12px;
+  color: #b0b3c6;
+  font-weight: 500;
+}
+
+body.light .notification-form-row label {
+  color: #64748b;
+}
+
+.notification-form-row input,
+.notification-form-row textarea {
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+  font-size: 13px;
+  resize: vertical;
+}
+
+.notification-form-row textarea {
+  min-height: 60px;
+}
+
+body.light .notification-form-row input,
+body.light .notification-form-row textarea {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background: rgba(0, 0, 0, 0.03);
+  color: #334155;
+}
+
+.notification-form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.cancel-notification-btn,
+.submit-notification-btn {
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cancel-notification-btn {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #b0b3c6;
+}
+
+.cancel-notification-btn:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+.submit-notification-btn {
+  background-color: #9370db;
+  color: white;
+}
+
+.submit-notification-btn:hover {
+  background-color: #8a2be2;
+}
+
+.submit-notification-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+body.light .cancel-notification-btn {
+  background-color: rgba(0, 0, 0, 0.05);
+  color: #64748b;
+}
+
+body.light .cancel-notification-btn:hover {
+  background-color: rgba(0, 0, 0, 0.08);
 }

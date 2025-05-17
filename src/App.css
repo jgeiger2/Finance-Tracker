@@ -451,13 +451,13 @@ body.light .summary-action-btn {
   background: rgba(24, 25, 36, 0.98);
   border-radius: 1.1rem;
   border: 2px solid rgba(45, 212, 191, 0.3);
-  margin: 0;
+  margin: 0 0 0.75rem 0;
   overflow: hidden;
-  padding: 1.5rem 1.2rem 1.2rem 1.2rem;
+  padding: 1.2rem;
   box-shadow: 0 4px 24px rgba(31, 38, 135, 0.13);
   display: flex;
   flex-direction: column;
-  gap: 1.2rem;
+  gap: 1rem;
   position: relative;
   transition: all 0.3s ease;
   min-width: 0;
@@ -479,23 +479,25 @@ body.light .recurring-bill-card:hover {
   border-color: rgba(186, 230, 253, 0.8);
 }
 
-.rb-header-row,
-.rb-details-row {
-  flex-wrap: wrap;
-  min-width: 0;
-}
-
 .rb-header-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 1.5rem;
+  gap: 1rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+body.light .rb-header-row {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .rb-header-left {
   display: flex;
   align-items: center;
   gap: 0.8rem;
+  flex: 0 1 auto;
+  min-width: 0;
 }
 
 .rb-icon {
@@ -507,8 +509,9 @@ body.light .recurring-bill-card:hover {
 .rb-title {
   font-size: 1.2rem;
   font-weight: 700;
-  color: var(--color-text);
+  color: #ffffff;
   letter-spacing: 0.01em;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
 }
 
 .rb-badge {
@@ -538,25 +541,71 @@ body.light .recurring-bill-card:hover {
   align-items: flex-end;
   gap: 0.2em;
 }
-.rb-amount-label {
-  font-size: 0.95em;
+
+.rb-date-label {
+  font-size: 0.9em;
   color: #b0b3c6;
   font-weight: 500;
 }
+
+.rb-date-value {
+  font-size: 1.8rem;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  color: #38bdf8;
+  line-height: 1.1;
+}
+
+.rb-date-value.trial-ended {
+  color: #00f2fe;
+  background: linear-gradient(90deg, #00f2fe 0%, #43cea2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.rb-date-value.next-due {
+  color: #38bdf8;
+}
+
+body.light .rb-date-label {
+  color: #64748b;
+}
+
+body.light .rb-date-value.trial-ended {
+  background: linear-gradient(90deg, #0ea5e9 0%, #10b981 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+body.light .rb-date-value.next-due {
+  color: #2563eb;
+}
+
+.rb-amount-label {
+  font-size: 0.95em;
+  color: #d4d7e6;
+  font-weight: 500;
+}
+
 .rb-amount {
-  font-size: 2rem;
+  font-size: 1.4rem;
   font-weight: 800;
   color: #e600ff;
   letter-spacing: 0.01em;
-  margin-top: 0.1em;
   line-height: 1.1;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
 }
+
 .rb-amount.paid {
   color: #e600ff;
 }
+
 .rb-amount.trial {
   color: #00f2fe;
 }
+
 body.light .rb-amount {
   color: #a21caf;
 }
@@ -566,51 +615,78 @@ body.light .rb-amount {
   justify-content: space-between;
   align-items: flex-start;
   gap: 1.2rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
-.rb-details-col {
+
+body.light .rb-details-row {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.rb-details-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 0.8rem 1.5rem;
+  width: 100%;
+  flex: 1;
+}
+
+.rb-details-item {
   display: flex;
   flex-direction: column;
   gap: 0.3em;
-  min-width: 120px;
-  word-break: break-word;
-  flex: 1 1 120px;
 }
+
+.rb-details-label {
+  color: #d4d7e6;
+  font-weight: 500;
+  font-size: 0.9em;
+}
+
+body.light .rb-details-label {
+  color: #64748b;
+}
+
 .rb-detail-value {
   font-weight: 600;
-  color: #b0b3c6;
+  color: #ffffff;
 }
+
 .rb-detail-value.paid {
-  color: #22c55e;
+  color: #4ade80;
 }
+
 .rb-detail-value.trial-ended {
-  color: #38bdf8;
+  color: #7dd3fc;
 }
+
 .rb-detail-value.next-due {
-  color: #38bdf8;
+  color: #7dd3fc;
 }
+
 body.light .rb-detail-value {
   color: #334155;
 }
+
 body.light .rb-detail-value.paid {
   color: #16a34a;
 }
+
 body.light .rb-detail-value.trial-ended,
 body.light .rb-detail-value.next-due {
   color: #2563eb;
 }
 
-.rb-actions-col {
+.rb-actions-row {
   display: flex;
-  flex-direction: column;
-  gap: 0.5em;
-  align-items: flex-start;
-  min-width: 90px;
-  max-width: 120px;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 1rem;
   width: 100%;
-  flex: 0 0 120px;
 }
+
 .rb-action-btn {
-  width: 100%;
+  width: auto;
   min-width: 0;
   max-width: 100%;
   box-sizing: border-box;
@@ -622,13 +698,14 @@ body.light .rb-detail-value.next-due {
   color: #fff;
   border: 1.5px solid rgba(255, 255, 255, 0.18);
   border-radius: 0.7em;
-  padding: 0.6em 1.4em;
-  font-size: 1em;
+  padding: 0.7em 1.4em;
+  font-size: 0.95em;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   backdrop-filter: blur(6px) saturate(160%);
   box-shadow: 0 2px 8px rgba(31, 38, 135, 0.1);
+  flex: 0 0 auto;
 }
 .rb-action-btn.unpay {
   background: rgba(245, 158, 66, 0.13);
@@ -1025,4 +1102,865 @@ body.light .footer-separator {
 body.light .footer-author,
 body.light .footer-year {
   color: #334155;
+}
+
+/* Auth Styles */
+.auth-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 2rem;
+}
+
+.auth-card {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 1.5rem;
+  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.18);
+  backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  padding: 2rem;
+  width: 100%;
+  max-width: 420px;
+  margin: 0 auto;
+}
+
+body.light .auth-card {
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(224, 231, 239, 0.8);
+  box-shadow: 0 4px 16px rgba(31, 38, 135, 0.07);
+}
+
+.auth-title {
+  font-size: 1.75rem;
+  font-weight: 800;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-group label {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #b0b3c6;
+}
+
+body.light .form-group label {
+  color: #334155;
+}
+
+.form-group input {
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  background: rgba(0, 0, 0, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #fff;
+  font-size: 1rem;
+}
+
+body.light .form-group input {
+  background: rgba(0, 0, 0, 0.03);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  color: #334155;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: rgba(0, 242, 254, 0.5);
+  box-shadow: 0 0 0 2px rgba(0, 242, 254, 0.1);
+}
+
+.auth-button {
+  margin-top: 0.5rem;
+  padding: 0.9rem;
+  border-radius: 0.75rem;
+  background: linear-gradient(135deg, var(--color-cyan), var(--color-magenta));
+  color: white;
+  font-weight: 700;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.auth-button:hover {
+  transform: translateY(-2px);
+}
+
+.auth-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.auth-error {
+  color: #f43f5e;
+  font-size: 0.9rem;
+  text-align: center;
+  padding: 0.5rem;
+  background: rgba(244, 63, 94, 0.1);
+  border-radius: 0.5rem;
+}
+
+.auth-switch {
+  margin-top: 1.5rem;
+  text-align: center;
+}
+
+.auth-switch-button {
+  background: transparent;
+  border: none;
+  color: #00f2fe;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 0.95rem;
+  padding: 0.5rem 1rem;
+}
+
+.auth-switch-button:hover {
+  text-decoration: underline;
+}
+
+.loading-screen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-size: 1.5rem;
+  color: var(--color-text);
+  background: linear-gradient(
+    120deg,
+    #181924 0%,
+    rgba(0, 242, 254, 0.07) 30%,
+    rgba(230, 0, 255, 0.07) 70%,
+    #181924 100%
+  );
+}
+
+.no-transactions {
+  padding: 2rem 1rem;
+  text-align: center;
+  color: #b0b3c6;
+  font-size: 1.05rem;
+  border-radius: 0.75rem;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+body.light .no-transactions {
+  color: #64748b;
+  background: rgba(0, 0, 0, 0.02);
+}
+
+.no-bills {
+  padding: 2rem 1rem;
+  text-align: center;
+  color: #b0b3c6;
+  font-size: 1.05rem;
+  border-radius: 0.75rem;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+body.light .no-bills {
+  color: #64748b;
+  background: rgba(0, 0, 0, 0.02);
+}
+
+/* Modal Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1200;
+  padding: 1rem;
+  backdrop-filter: blur(3px);
+}
+
+/* New modal backdrop style - same as overlay */
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1200;
+  padding: 1rem;
+  backdrop-filter: blur(3px);
+}
+
+/* New modal content styles */
+.modal-content {
+  background: rgba(35, 38, 58, 0.95);
+  border-radius: 1rem;
+  width: 100%;
+  max-width: 500px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  animation: modalFadeIn 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+body.light .modal-content {
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+body.light .modal-header {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.modal-header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.close-button {
+  background: transparent;
+  border: none;
+  color: #b0b3c6;
+  font-size: 1.75rem;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0.2rem 0.5rem;
+  transition: color 0.2s;
+}
+
+.close-button:hover {
+  color: #e11d48;
+}
+
+body.light .close-button {
+  color: #64748b;
+}
+
+body.light .close-button:hover {
+  color: #be123c;
+}
+
+.error-message {
+  color: #f43f5e;
+  font-size: 0.9rem;
+  padding: 0.5rem;
+  background: rgba(244, 63, 94, 0.1);
+  border-radius: 0.5rem;
+  margin: 0 1.5rem 1rem;
+}
+
+.form-row {
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+}
+
+.form-row .form-group {
+  flex: 1;
+}
+
+/* Form styles */
+form {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+/* Form elements */
+select,
+textarea {
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #fff;
+  font-size: 1rem;
+  width: 100%;
+}
+
+body.light select,
+body.light textarea {
+  background: rgba(0, 0, 0, 0.03);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  color: #334155;
+}
+
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: rgba(0, 242, 254, 0.5);
+  box-shadow: 0 0 0 2px rgba(0, 242, 254, 0.1);
+}
+
+.cancel-button {
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.75rem;
+  background: rgba(255, 255, 255, 0.1);
+  color: #b0b3c6;
+  font-weight: 600;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.cancel-button:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+body.light .cancel-button {
+  background: rgba(0, 0, 0, 0.05);
+  color: #64748b;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+body.light .cancel-button:hover {
+  background: rgba(0, 0, 0, 0.08);
+}
+
+.submit-button {
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.75rem;
+  background: linear-gradient(135deg, var(--color-cyan), var(--color-magenta));
+  color: white;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.submit-button:hover {
+  transform: translateY(-2px);
+}
+
+.submit-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Modal animations */
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.rb-actions-top {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Exact pixel value for consistent spacing */
+  flex: 0 0 auto;
+}
+
+.rb-action-btn.small {
+  padding: 6px 12px;
+  font-size: 13px;
+  border-radius: 8px; /* Slightly larger radius to match screenshot */
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  height: 32px;
+  box-sizing: border-box;
+  font-weight: 500; /* Slightly lighter to match screenshot */
+  white-space: nowrap;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  transition: all 0.15s ease;
+}
+
+.rb-action-btn.small svg {
+  font-size: 13px; /* Slightly smaller to match screenshot */
+  display: block;
+}
+
+.rb-action-btn.small.reminder svg {
+  font-size: 12px; /* Even smaller for bell icon */
+}
+
+.rb-action-btn.small.unpay {
+  background: rgba(245, 158, 66, 0.13);
+  color: #f59e42;
+}
+
+.rb-action-btn.small.unpay.pay {
+  background: #047857; /* Consistent green color */
+  color: white;
+}
+
+.rb-action-btn.small.unpay.pay:hover {
+  background: #065f46; /* Darker green */
+}
+
+.rb-action-btn.small.delete {
+  background: #be123c; /* Consistent red */
+  color: white;
+}
+
+.rb-action-btn.small.delete:hover {
+  background: #9f1239; /* Darker red */
+}
+
+.rb-action-btn.small.reminder {
+  background-color: #9e68d4; /* Matching the exact purple in the screenshot */
+  color: #ffffff; /* Ensure bright white text */
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+  font-weight: 600; /* Make text slightly bolder for better visibility */
+  text-shadow: none; /* Remove any text shadow that could be affecting color */
+}
+
+.rb-action-btn.small.reminder:hover {
+  background-color: #8a4fc8; /* Darker version of the matching purple */
+}
+
+.rb-action-btn.small:hover {
+  transform: translateY(-1px);
+}
+
+.rb-action-btn.small:disabled,
+.rb-action-btn.small.reminder:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.rb-content-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1.2rem;
+  width: 100%;
+}
+
+.rb-date-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.2em;
+  flex: 0 0 auto;
+}
+
+/* Spinner animation */
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.spinner {
+  animation: spin 1s linear infinite;
+  display: inline-block;
+}
+
+.rb-action-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.loading-transactions {
+  padding: 2rem 1rem;
+  text-align: center;
+  color: #b0b3c6;
+  font-size: 1.05rem;
+  border-radius: 0.75rem;
+  background: rgba(255, 255, 255, 0.03);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.loading-transactions .spinner {
+  font-size: 1.5rem;
+}
+
+body.light .loading-transactions {
+  color: #64748b;
+  background: rgba(0, 0, 0, 0.02);
+}
+
+/* Reminders Card Styles */
+.reminders-glass-card {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  overflow: hidden;
+}
+
+.reminders-header {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+.reminders-title {
+  font-size: 1.5rem;
+  margin: 0;
+  margin-bottom: 0.5rem;
+  color: #ffffff;
+}
+
+.reminders-desc {
+  font-size: 0.875rem;
+  margin: 0;
+  color: #b3b3b3;
+}
+
+.add-reminder-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: linear-gradient(45deg, #6a5acd, #9370db);
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-size: 0.875rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.add-reminder-btn:hover {
+  background: linear-gradient(45deg, #5a4abf, #8360cb);
+  transform: translateY(-2px);
+}
+
+.add-reminder-form {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.form-row {
+  margin-bottom: 1rem;
+}
+
+.form-row label {
+  display: block;
+  font-size: 0.875rem;
+  margin-bottom: 0.5rem;
+  color: #e6e6e6;
+}
+
+.form-row input,
+.form-row textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  font-size: 0.875rem;
+}
+
+.form-row textarea {
+  height: 80px;
+  resize: vertical;
+}
+
+.submit-reminder-btn {
+  display: block;
+  width: 100%;
+  padding: 0.75rem;
+  background: linear-gradient(45deg, #6a5acd, #9370db);
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.submit-reminder-btn:hover {
+  background: linear-gradient(45deg, #5a4abf, #8360cb);
+}
+
+.no-reminders {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 2rem;
+  text-align: center;
+  color: #b3b3b3;
+}
+
+.reminders-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.reminder-card {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  overflow: hidden;
+  padding: 1rem;
+  border-left: 4px solid #9370db;
+  transition: all 0.2s ease;
+}
+
+.reminder-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.reminder-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.reminder-header-left {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.reminder-icon {
+  color: #9370db;
+  font-size: 1.25rem;
+}
+
+.reminder-title {
+  font-weight: 600;
+  font-size: 1rem;
+  color: #ffffff;
+}
+
+.reminder-badge {
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 12px;
+  font-weight: 500;
+}
+
+.reminder-badge.today {
+  background-color: #ff6b6b;
+  color: white;
+}
+
+.reminder-badge.tomorrow {
+  background-color: #ffa502;
+  color: white;
+}
+
+.reminder-actions-top {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.reminder-action-btn.small {
+  font-size: 0.75rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  transition: all 0.2s ease;
+}
+
+.reminder-action-btn.small.dismiss {
+  background-color: #4caf50;
+  color: white;
+}
+
+.reminder-action-btn.small.dismiss:hover {
+  background-color: #3d8b40;
+}
+
+.reminder-action-btn.small.delete {
+  background-color: #f44336;
+  color: white;
+}
+
+.reminder-action-btn.small.delete:hover {
+  background-color: #d32f2f;
+}
+
+.reminder-content-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.reminder-details {
+  flex: 1;
+}
+
+.reminder-description {
+  font-size: 0.875rem;
+  color: #b3b3b3;
+  white-space: pre-line;
+  margin-top: 0.5rem;
+}
+
+.reminder-date-container {
+  padding: 0.5rem 1rem;
+  background: rgba(255, 255, 255, 0.07);
+  border-radius: 8px;
+  min-width: 120px;
+  text-align: center;
+  margin-left: 1rem;
+}
+
+.reminder-date-label {
+  font-size: 0.75rem;
+  color: #b3b3b3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  margin-bottom: 0.25rem;
+}
+
+.date-icon {
+  font-size: 0.75rem;
+}
+
+.reminder-date-value {
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: white;
+}
+
+.reminder-date-value.today {
+  color: #ff6b6b;
+}
+
+.reminder-date-value.tomorrow {
+  color: #ffa502;
+}
+
+.reminder-date-value.upcoming {
+  color: #4caf50;
+}
+
+/* For mobile screens */
+@media (max-width: 768px) {
+  .reminder-header-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .reminder-actions-top {
+    margin-top: 0.5rem;
+    width: 100%;
+  }
+
+  .reminder-action-btn.small {
+    flex: 1;
+    justify-content: center;
+  }
+
+  .reminder-content-row {
+    flex-direction: column;
+  }
+
+  .reminder-date-container {
+    margin-left: 0;
+    margin-top: 0.75rem;
+    width: 100%;
+  }
+}
+
+/* Styles for reminder summary in summary card */
+.gradient-reminder {
+  background: linear-gradient(to right, #9370db, #6a5acd);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.reminder-icon-small {
+  font-size: 14px;
+  color: #9370db;
+  -webkit-text-fill-color: #9370db;
+}
+
+.reminder-counts {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+}
+
+.reminder-count {
+  font-size: 14px;
+  display: block;
+}
+
+.today-count {
+  color: #ff6b6b;
+  font-weight: 600;
+}
+
+.none-today {
+  color: #90ee90;
+  font-style: italic;
+}
+
+.upcoming-count {
+  font-size: 12px;
+  color: #b3b3b3;
+}
+
+.remind-text {
+  color: #ffffff;
+  font-weight: 600;
+  letter-spacing: 0.01em;
 }
