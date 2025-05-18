@@ -2333,3 +2333,169 @@ body.light .loading-transactions {
   flex-wrap: wrap;
   justify-content: center;
 }
+
+/* Compact recurring bill styles */
+.bill-info-compact {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex: 1;
+  padding: 0 1rem;
+}
+
+.bill-category {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #d4d7e6;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 0.25rem 0.75rem;
+  border-radius: 0.5rem;
+  text-transform: capitalize;
+}
+
+.bill-amount {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #4facfe;
+  text-align: right;
+  min-width: 80px;
+}
+
+.bill-amount.paid {
+  color: #22c55e;
+}
+
+.bill-amount.trial {
+  color: #b47ac7;
+}
+
+.bill-date {
+  font-size: 0.9rem;
+  color: #a0a3bd;
+  text-align: center;
+  min-width: 100px;
+}
+
+.bill-date.trial-ended {
+  color: #b47ac7;
+}
+
+.bill-date.next-due {
+  color: #4facfe;
+}
+
+.bill-actions-compact {
+  display: flex;
+  gap: 0.5rem;
+  margin-left: auto;
+}
+
+.rb-action-btn.compact {
+  font-size: 0.8rem;
+  padding: 0.3rem 0.75rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 85px;
+}
+
+.rb-action-btn.compact:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-1px);
+}
+
+.rb-action-btn.compact.pay {
+  background: rgba(34, 197, 94, 0.2);
+  color: #22c55e;
+}
+
+.rb-action-btn.compact.pay:hover {
+  background: rgba(34, 197, 94, 0.3);
+}
+
+.rb-action-btn.compact.unpay {
+  background: rgba(34, 197, 94, 0.1);
+  color: #22c55e;
+}
+
+.rb-action-btn.compact.reminder {
+  background: rgba(79, 172, 254, 0.2);
+  color: #4facfe;
+}
+
+.rb-action-btn.compact.reminder:hover {
+  background: rgba(79, 172, 254, 0.3);
+}
+
+.rb-action-btn.compact.delete {
+  background: rgba(239, 68, 68, 0.2);
+  color: #ef4444;
+}
+
+.rb-action-btn.compact.delete:hover {
+  background: rgba(239, 68, 68, 0.3);
+}
+
+.rb-action-btn.compact:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+body.light .bill-category {
+  color: #4b5563;
+  background: rgba(0, 0, 0, 0.05);
+}
+
+body.light .bill-amount {
+  color: #0284c7;
+}
+
+body.light .bill-amount.paid {
+  color: #16a34a;
+}
+
+body.light .bill-amount.trial {
+  color: #9333ea;
+}
+
+body.light .bill-date {
+  color: #6b7280;
+}
+
+body.light .bill-date.trial-ended {
+  color: #9333ea;
+}
+
+body.light .bill-date.next-due {
+  color: #0284c7;
+}
+
+@media (max-width: 768px) {
+  .rb-header-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .bill-info-compact {
+    width: 100%;
+    padding: 0.5rem 0;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+
+  .bill-actions-compact {
+    width: 100%;
+    justify-content: space-between;
+    margin-top: 0.5rem;
+  }
+
+  .rb-action-btn.compact {
+    flex: 1;
+    min-width: auto;
+  }
+}
