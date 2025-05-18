@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   FaSync,
   FaTrash,
@@ -18,6 +18,48 @@ const RecurringBillsCard = () => {
   const { recurringBills, refreshRecurringBills, refreshReminders } =
     useFirebase();
   const [loadingStates, setLoadingStates] = useState({});
+  const [displayBills, setDisplayBills] = useState([]);
+
+  // Filter and limit bills to display
+  useEffect(() => {
+    if (!recurringBills || recurringBills.length === 0) {
+      setDisplayBills([]);
+      return;
+    }
+
+    const currentDate = new Date();
+
+    // Filter out paid bills older than 1 day
+    const filteredBills = recurringBills.filter((bill) => {
+      if (bill.isPaid) {
+        // Keep paid bills for 1 day
+        const paidDate = bill.lastPaid ? new Date(bill.lastPaid) : null;
+        if (paidDate) {
+          const oneDayAfterPaid = new Date(paidDate);
+          oneDayAfterPaid.setDate(oneDayAfterPaid.getDate() + 1);
+          return currentDate < oneDayAfterPaid;
+        }
+      }
+      return true;
+    });
+
+    // Limit to 5 bills
+    setDisplayBills(filteredBills.slice(0, 5));
+
+    // Check for bills to delete (paid more than 1 day ago)
+    recurringBills.forEach((bill) => {
+      if (bill.isPaid && bill.lastPaid) {
+        const paidDate = new Date(bill.lastPaid);
+        const oneDayAfterPaid = new Date(paidDate);
+        oneDayAfterPaid.setDate(oneDayAfterPaid.getDate() + 1);
+
+        if (currentDate > oneDayAfterPaid) {
+          // Auto-delete bills paid more than 1 day ago
+          handleDelete(bill.id);
+        }
+      }
+    });
+  }, [recurringBills]);
 
   const handleDelete = async (id) => {
     try {
@@ -141,7 +183,7 @@ const RecurringBillsCard = () => {
   };
 
   // Check if we have any bills
-  const noBills = !recurringBills || recurringBills.length === 0;
+  const noBills = !displayBills || displayBills.length === 0;
 
   return (
     <div className="recurring-bills-glass-card">
@@ -158,7 +200,7 @@ const RecurringBillsCard = () => {
         </div>
       ) : (
         <div className="recurring-bills-list">
-          {recurringBills.map((bill) => (
+          {displayBills.map((bill) => (
             <div className="recurring-bill-card" key={bill.id}>
               <div className="rb-header-row">
                 <div className="rb-header-left">

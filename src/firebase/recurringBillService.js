@@ -56,17 +56,13 @@ export const getRecurringBills = async () => {
       return []; // Return empty array if no user is logged in
     }
 
-    const q = query(
-      recurringBillsCollection,
-      where("userId", "==", user.uid),
-      orderBy("createdAt", "desc")
-    );
+    const q = query(recurringBillsCollection, where("userId", "==", user.uid));
     const querySnapshot = await getDocs(q);
 
-    return querySnapshot.docs.map((doc) => {
+    // Get bills and convert timestamps to date strings
+    let bills = querySnapshot.docs.map((doc) => {
       const data = doc.data();
 
-      // Convert all Timestamp fields to date strings
       return {
         id: doc.id,
         ...data,
@@ -81,6 +77,18 @@ export const getRecurringBills = async () => {
           : null,
       };
     });
+
+    // Sort bills by due date
+    bills.sort((a, b) => {
+      // If due date is missing, put it at the end
+      if (!a.dueDate) return 1;
+      if (!b.dueDate) return -1;
+
+      // Compare dates (earlier dates first)
+      return new Date(a.dueDate) - new Date(b.dueDate);
+    });
+
+    return bills;
   } catch (error) {
     console.error("Error getting recurring bills: ", error);
     throw error;
