@@ -211,46 +211,36 @@ const RecurringBillsCard = () => {
                   )}
                   {bill.isPaid && <span className="rb-badge paid">Paid</span>}
                 </div>
-
-                <div className="bill-info-compact">
-                  <div className="bill-category">
-                    {bill.category || "General"}
-                  </div>
-                  <div className={`bill-amount ${getBillStatus(bill)}`}>
-                    {formatCurrency(bill.amount)}
-                  </div>
-                  <div
-                    className={`bill-date ${
-                      isInTrialPeriod(bill) ? "trial-ended" : "next-due"
-                    }`}
-                  >
-                    {formatDate(
-                      isInTrialPeriod(bill) ? bill.trialEndDate : bill.dueDate
-                    )}
-                  </div>
-                </div>
-
-                <div className="bill-actions-compact">
+                <div className="rb-actions-top">
                   <button
-                    className={`rb-action-btn compact ${
-                      bill.isPaid ? "unpay" : "pay"
+                    className={`rb-action-btn small ${
+                      bill.isPaid ? "unpay" : "unpay pay"
                     }`}
                     onClick={() => handleTogglePaid(bill)}
                     disabled={loadingStates[`toggle_${bill.id}`]}
                   >
                     {loadingStates[`toggle_${bill.id}`] ? (
                       <FaSpinner className="spinner" />
+                    ) : bill.isPaid ? (
+                      "Mark Unpaid"
                     ) : (
                       "Mark Paid"
                     )}
                   </button>
                   <button
-                    className="rb-action-btn compact reminder"
+                    className="rb-action-btn small reminder"
                     onClick={() => handleCreateReminder(bill)}
                     disabled={
                       loadingStates[`reminder_${bill.id}`] ||
                       !bill.dueDate ||
                       bill.isPaid
+                    }
+                    title={
+                      !bill.dueDate
+                        ? "Bill needs due date to create reminder"
+                        : bill.isPaid
+                        ? "Bill already paid"
+                        : "Create reminder for this bill"
                     }
                   >
                     {loadingStates[`reminder_${bill.id}`] ? (
@@ -260,7 +250,7 @@ const RecurringBillsCard = () => {
                     )}
                   </button>
                   <button
-                    className="rb-action-btn compact delete"
+                    className="rb-action-btn small delete"
                     onClick={() => handleDelete(bill.id)}
                     disabled={loadingStates[`delete_${bill.id}`]}
                   >
@@ -270,6 +260,52 @@ const RecurringBillsCard = () => {
                       "Delete"
                     )}
                   </button>
+                </div>
+              </div>
+
+              <div className="rb-content-row">
+                <div className="rb-details-grid">
+                  <div className="rb-details-item">
+                    <span className="rb-details-label">Category:</span>
+                    <span className="rb-detail-value">
+                      {bill.category || "General"}
+                    </span>
+                  </div>
+                  <div className="rb-details-item">
+                    <span className="rb-details-label">Frequency:</span>
+                    <span className="rb-detail-value">
+                      {bill.frequency
+                        ? bill.frequency.charAt(0).toUpperCase() +
+                          bill.frequency.slice(1)
+                        : "Monthly"}
+                    </span>
+                  </div>
+                  <div className="rb-details-item">
+                    <span className="rb-details-label">Provider:</span>
+                    <span className="rb-detail-value">
+                      {bill.provider || "N/A"}
+                    </span>
+                  </div>
+                  <div className="rb-details-item">
+                    <span className="rb-details-label">Amount:</span>
+                    <span className={`rb-amount ${getBillStatus(bill)}`}>
+                      {formatCurrency(bill.amount)}
+                    </span>
+                  </div>
+                </div>
+                <div className="rb-date-container">
+                  <div className="rb-date-label">
+                    {isInTrialPeriod(bill) ? "Trial End:" : "Due Date:"}
+                  </div>
+                  <div
+                    className={`rb-date-value ${
+                      isInTrialPeriod(bill) ? "trial-ended" : "next-due"
+                    }`}
+                  >
+                    {formatDate(
+                      isInTrialPeriod(bill) ? bill.trialEndDate : bill.dueDate
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
